@@ -73,7 +73,9 @@ const getPhotos = async () => {
     const res = await fetch(apiURL);
     photosArray = await res.json();
     displayPhotos();
-  } catch (err) {}
+  } catch (err) {
+    alert("oops, please try again. ", err);
+  }
 };
 
 // Load more photos when close to the end of the page
