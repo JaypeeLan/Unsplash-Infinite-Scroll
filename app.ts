@@ -1,25 +1,31 @@
-const imageContainer = document.getElementById("image-container");
-const loader = document.getElementById("loader");
+const imageContainer = document.getElementById(
+  "image-container"
+)! as HTMLElement;
+const loader = document.getElementById("loader")! as HTMLElement;
 
 // ----------------------
-let ready = false;
-let imagesLoaded = 0;
-let totalImages = 0;
-let photosArray = [];
+let ready: boolean = false;
+let imagesLoaded: number = 0;
+let totalImages: number = 0;
+let photosArray: {}[] = [];
 
+// ------------
+type Attributes = {
+  [key: string]: string;
+};
 // Set attribute function
-const setAttributes = (elem, attr) => {
+const setAttributes = (elem: any, attr: Attributes) => {
   for (const key in attr) {
     elem.setAttribute(key, attr[key]);
   }
 };
 
 // variables for fetching data
-let count = 5;
-let apiKey = "atZlCWXnhMOyzUOltcZZAcFy1Spt5yloxIKg5XywCRo";
-let apiURL = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
+let count: number = 5;
+let apiKey: string = "atZlCWXnhMOyzUOltcZZAcFy1Spt5yloxIKg5XywCRo";
+let apiURL: string = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
 
-// -------check if all images were loaded
+//check if all images were loaded
 const imageLoaded = () => {
   imagesLoaded++;
 
@@ -33,14 +39,13 @@ const imageLoaded = () => {
     apiURL = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
   }
 };
-// ----------------------------------
 
 // create elements for DOM
 const displayPhotos = () => {
   imagesLoaded = 0;
   totalImages = photosArray.length;
   // --------------------------------------
-  photosArray.forEach((photo) => {
+  photosArray.forEach((photo: any) => {
     // create link to the photo unsplash photo
     const link = document.createElement("a");
 
@@ -71,10 +76,10 @@ const displayPhotos = () => {
 const getPhotos = async () => {
   try {
     const res = await fetch(apiURL);
-    photosArray = await res.json();
+    photosArray = await res?.json();
     displayPhotos();
   } catch (err) {
-    alert("oops, please try again. ", err);
+    alert("oops, please try again. " + err);
   }
 };
 
